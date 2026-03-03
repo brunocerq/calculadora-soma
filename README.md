@@ -1,0 +1,1 @@
+Esta app resolve o problema de encontrar um subconjunto de elementos da Coluna A e um subconjunto de elementos da Coluna B tal que a soma de ambos os subconjuntos seja exatamente igual e ao mesmo tempo corresponda à maior soma possível entre os elementos dos dois conjuntos. (Programação Linear Inteira) O número de elementos usados de A e B podem ser diferentes.
