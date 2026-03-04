@@ -16,7 +16,7 @@ st.title("Otimização: Maior Soma Comum de Dois Conjuntos")
 st.write("Faça o carregamento de um ficheiro (CSV ou Excel) que contenha duas colunas nomeadas 'A' e 'B'. A aplicação irá descobrir quais os elementos de cada coluna que, somados, resultam no maior valor comum possível.")
 
 # Zona de carregamento do ficheiro
-ficheiro_carregado = st.file_uploader("Escolha o ficheiro", type=["csv", "xlsx", "xls"])
+ficheiro_carregado = st.file_uploader("Escolha o ficheiro", type=["csv", "xlsx", "xls", "xlsm"])
 
 if ficheiro_carregado is not None:
     try:
@@ -98,4 +98,5 @@ if ficheiro_carregado is not None:
                     st.error("Não foi possível encontrar uma solução ótima para os conjuntos fornecidos.")
 
     except Exception as e:
+
         st.error(f"Ocorreu um erro ao processar o ficheiro. Detalhe: {e}")
