@@ -9,44 +9,41 @@ col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.image("logo.svg", use_container_width=True)
 
-st.title("Otimização: Maior Soma Comum de Dois Conjuntos - V2")
-st.write("A aplicação irá procurar as colunas 'A' e 'B', ou em alternativa, os dados nas colunas Y e Z do seu Excel.")
+st.title("Otimização: Maior Soma Comum de Dois Conjuntos - V3")
+st.write("A aplicação irá procurar as colunas 'A' e 'B', ou em alternativa, os dados nas colunas AA e AB do seu Excel.")
 
 ficheiro_carregado = st.file_uploader("Escolha o ficheiro", type=["csv", "xlsx", "xls", "xlsm"])
 
 if ficheiro_carregado is not None:
     try:
         if ficheiro_carregado.name.endswith('.csv'):
-            df = pd.read_csv(ficheiro_carregado)
+            df = pd.read_csv(ficheiro_carregado, header=None) # Ajustado para ler a grelha bruta
         else:
-            df = pd.read_excel(ficheiro_carregado)
+            df = pd.read_excel(ficheiro_carregado, header=None)
             
         col_A_data = None
         col_B_data = None
         
-        # PLANO A: Procurar colunas literalmente chamadas 'A' e 'B'
-        if 'A' in df.columns and 'B' in df.columns:
-            col_A_data = df['A']
-            col_B_data = df['B']
-        # PLANO B: Ler as colunas físicas Y (25ª coluna, índice 24) e Z (26ª coluna, índice 25)
-        elif df.shape[1] >= 26:
-            col_A_data = df.iloc[:, 24]
-            col_B_data = df.iloc[:, 25]
+        # O Pandas, lendo com header=None, coloca as colunas reais nas linhas. 
+        # Vamos procurar a linha onde estão o 'A' e 'B' ou assumir posições físicas
+        
+        # PLANO B Principal: Ler as colunas físicas AA (índice 26) e AB (índice 27)
+        if df.shape[1] >= 28:
+            col_A_data = df.iloc[:, 26]
+            col_B_data = df.iloc[:, 27]
+        # PLANO A Alternativo: O ficheiro antigo onde A e B estão logo no início (índice 0 e 1)
+        elif df.shape[1] >= 2:
+            col_A_data = df.iloc[:, 0]
+            col_B_data = df.iloc[:, 1]
             
         if col_A_data is None or col_B_data is None:
-            st.error("Atenção: O ficheiro não contém colunas nomeadas 'A' e 'B', nem possui colunas suficientes para ler as posições Y e Z.")
+            st.error("Atenção: O ficheiro não possui colunas suficientes para ler os dados.")
         else:
             st.success("Ficheiro validado! A iniciar o cálculo matemático...")
             
             with st.spinner("A processar a otimização... isto pode demorar alguns segundos a minutos dependendo da quantidade de dados."):
                 
                 # --- O TRITURADOR (Limpeza e formatação PT-PT) ---
-                # Aplica-se às colunas encontradas, independentemente da sua origem.
-                # 1. Converte para texto para garantir que encontra as vírgulas.
-                # 2. Substitui ',' por '.' para a matemática funcionar.
-                # 3. Força a conversão para número (o que for texto puro vira nulo).
-                # 4. Remove os nulos.
-                
                 col_A_limpa = pd.to_numeric(col_A_data.astype(str).str.replace(',', '.'), errors='coerce').dropna()
                 col_B_limpa = pd.to_numeric(col_B_data.astype(str).str.replace(',', '.'), errors='coerce').dropna()
                 
@@ -109,4 +106,3 @@ if ficheiro_carregado is not None:
 
     except Exception as e:
         st.error(f"Ocorreu um erro ao processar o ficheiro. Detalhe: {e}")
-
