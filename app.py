@@ -9,7 +9,7 @@ col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.image("logo.svg", use_container_width=True)
 
-st.title("Otimização: Maior Soma Comum de Dois Conjuntos")
+st.title("Otimização: Maior Soma Comum de Dois Conjuntos - V2")
 st.write("A aplicação irá procurar as colunas 'A' e 'B', ou em alternativa, os dados nas colunas Y e Z do seu Excel.")
 
 ficheiro_carregado = st.file_uploader("Escolha o ficheiro", type=["csv", "xlsx", "xls", "xlsm"])
@@ -109,3 +109,4 @@ if ficheiro_carregado is not None:
 
     except Exception as e:
         st.error(f"Ocorreu um erro ao processar o ficheiro. Detalhe: {e}")
+
