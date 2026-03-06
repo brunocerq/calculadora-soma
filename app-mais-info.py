@@ -6,10 +6,7 @@ from scipy.optimize import milp, LinearConstraint, Bounds
 # Configuração da página
 st.set_page_config(page_title="Calculadora de Reconciliação", page_icon="logo.svg", layout="wide")
 
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    # A CORREÇÃO DO LOGO: Definimos uma largura fixa (ex: 250 píxeis) para não esticar
-    st.image("logo.svg", width=250)
+st.image("logo.svg", width=250)
 
 st.title("Otimização de Reconciliação")
 st.write("A aplicação irá processar os dois conjuntos (Amarelos e Cor-de-Rosa) em simultâneo e identificar os movimentos não utilizados na soma máxima.")
